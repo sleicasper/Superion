@@ -15,6 +15,7 @@
 
 PROGNAME    = afl
 VERSION     = $(shell grep '^\#define VERSION ' config.h | cut -d '"' -f2)
+CURRDIR     = $(shell pwd)
 
 PREFIX     ?= /usr/local
 BIN_PATH    = $(PREFIX)/bin
@@ -70,16 +71,16 @@ afl-as: afl-as.c afl-as.h $(COMM_HDR) | test_x86
 	ln -sf afl-as as
 
 afl-jsfuzz: afl-fuzz.c $(COMM_HDR) | test_x86
-	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) ./libjsTreeMutation.so
+	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) $(CURRDIR)/libjsTreeMutation.so
 
 afl-xmlfuzz: afl-fuzz.c $(COMM_HDR) | test_x86
-	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) ./libxmlTreeMutation.so
+	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) $(CURRDIR)/libxmlTreeMutation.so
 
 afl-phpfuzz: afl-fuzz.c $(COMM_HDR) | test_x86
-	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) ./libphpTreeMutation.so
+	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) $(CURRDIR)/libphpTreeMutation.so
 
 afl-vbsfuzz: afl-fuzz.c $(COMM_HDR) | test_x86
-	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) ./libvbsTreeMutation.so
+	$(CC) $(CFLAGS) afl-fuzz.c -o $@ $(LDFLAGS) $(CURRDIR)/libvbsTreeMutation.so
 
 afl-showmap: afl-showmap.c $(COMM_HDR) | test_x86
 	$(CC) $(CFLAGS) $@.c -o $@ $(LDFLAGS)
